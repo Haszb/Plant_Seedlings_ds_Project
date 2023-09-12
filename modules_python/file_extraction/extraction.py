@@ -96,11 +96,11 @@ def read_plant_datasets(
     import os, sys
     import numpy as np
     import matplotlib.pyplot as plt
-    from sklearn.preprocessing import LabelEncoder
-    from image_processing import preprocessing
+    from   sklearn.preprocessing import LabelEncoder
+    from modules_python.image_processing import preprocessing
     from alive_progress import alive_bar
     from time import sleep
-    from config import config
+    from modules_python.config import config
 
     # nettoyage de l'écran
     sys.stdout.write(
