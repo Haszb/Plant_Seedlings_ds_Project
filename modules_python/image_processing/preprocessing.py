@@ -9,7 +9,7 @@ from skimage.util import img_as_ubyte                                           
 import numpy as np                                                                       #
 import cv2                                                                               #
 from skimage.morphology import closing, opening                                          #
-from config import init, fg, bg                                                          #
+from modules_python.config.config  import init, fg, bg                                                          #
 ##########################################################################################
 # Copyright : Iréné A. Essomba (c) 2023                                                  #
 ##########################################################################################
