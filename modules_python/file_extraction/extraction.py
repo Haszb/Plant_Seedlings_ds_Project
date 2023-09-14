@@ -30,7 +30,7 @@ def read_plant_datasets(
     * -------------------------------------------------------------------------------------
 
     >>> channel_type = ["RBG-HSV", "SIMPLE_GRAY", "RGB", "HIS-C", "HIS-EQ","HIS-ADAPT", 
-            "HIS-DISK", "GAUSSIAN", "RGB2-HSV", "RGR2-LAB" ]
+            "HIS-DISK", "GAUSSIAN", "RGB2-HSV", "RGB2-LAB" ]
 
     * -------------------------------------------------------------------------------------
 
