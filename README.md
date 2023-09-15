@@ -3,21 +3,23 @@
 
 ## Project description :
 
-| __Noms d'espèces__                 | __Nombre de plantes par espèces__ |  total|
-|--------------------------------------|----------------------------------|------|
-| __```Black-grass```__                | __```309```__               |
-| __```Charlock```__                   | __```452```__               |
-| __```Cleavers```__                   | __```335```__               |
-| __```Common Chickweed```__           | __```713```__               |
-| __```Common wheat```__               | __```253```__               |
-| __```Fat Hen```__                    | __```538```__               |
-| __```Loose Silky-bent```__           | __```762```__               |
-| __```Maize```__                      | __```257```__               |
-| __```Scentless Mayweed```__          | __```607```__               |
-| __```Shepherdoco Purse```__          | __```274```__               |
-| __```Small-flowered Cranesbill```__  | __```576```__               |
-| __```Sugar beet```__                 | __```463```__               | 
-|                                      |                             | _```12 espèces```_|
+| __Noms d'espèces__                    | __Nombre de plantes par espèces__ |  total|
+|---------------------------------------|----------------------------------|------|
+| __Black-grass__                       | __309__               |
+| __Charlock__                          | __452__               |
+| __Cleavers__                          | __335__               |
+| __Common Chickweed__                  | __713__               |
+| __Common wheat__                      | __253__               |
+| __Fat Hen__                           | __538__               |
+| __Loose Silky-bent__                  | __762__               |
+| __Maize__                             | __257__               |
+| __Scentless Mayweed__                 | __607__               |
+| __Shepherdoco Purse__                 | __274__               |
+| __Small-flowered Cranesbill__         | __576__               |
+| __Sugar beet__                        | __463__               | 
+|                                       |                       | _```12 espèces```_|
+
+- Data source : [Kaggle V2 Plant Seedlings Dataset](https://www.kaggle.com/datasets/vbookshelf/v2-plant-seedlings-dataset)
 
 ## Objectives : 
 
