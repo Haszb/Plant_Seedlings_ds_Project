@@ -11,11 +11,11 @@
 
 ## Acknowledgement :
 
-# Authors : 
-* __**Dr. Iréné A.E**__
-* __**Olivier M.**__ 
-* __**Hassan Z.**__
-* __**Gilles D.P**__
+## Authors : 
+* __**```Dr. Iréné A.E```**__
+* __**```Olivier M.```**__ 
+* __**```Hassan Z.```**__
+* __**```Gilles D.P```**__
 
 ## 🤝 Support 
 Give a ⭐ if you like this project!
