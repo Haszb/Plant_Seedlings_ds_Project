@@ -30,7 +30,7 @@ def read_plant_datasets(
     * -------------------------------------------------------------------------------------
 
     >>> channel_type = ["RBG-HSV", "SIMPLE_GRAY", "RGB", "HIS-C", "HIS-EQ","HIS-ADAPT", 
-            "HIS-DISK", "GAUSSIAN", "RGB2-HSV", "RGB2-LAB" ]
+            "HIS-DISK", "GAUSSIAN", "RGR2-HSV", "RGR2-LAB" ]
 
     * -------------------------------------------------------------------------------------
 
@@ -247,7 +247,7 @@ def read_plant_datasets(
         else : 
             X = np.array(X, dtype="object")
             true_imgs = np.array(true_imgs, dtype="object")
-            y = np.array(y)
+            y = np.array(y, dtype=object)
 
         data = { 
             'X'             : X, 

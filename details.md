@@ -25,9 +25,9 @@
     type(channel_type) = <class str>
 
     à savoir Il exite plusieurs types de filtres implémentés ici. Il faut en choisir un filtre dans la liste ci-dessous
-    ["RBG-HSV", "SIMPLE_GRAY", "RGB", "HIS-C", "HIS-EQ","HIS-ADAPT", "HIS-DISK", "GAUSSIAN", "RGB2-HSV", "RGB2-LAB" ]
+    ["RBG-HSV", "SIMPLE_GRAY", "RGB", "HIS-C", "HIS-EQ","HIS-ADAPT", "HIS-DISK", "GAUSSIAN", "RGR2-HSV", "RGR2-LAB" ]
     
-    channel_type        = "RGB2-LAB" 
+    channel_type        = "RGR2-LAB" 
     ```
 
 * *```redimensionnement des images```*
