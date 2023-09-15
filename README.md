@@ -17,7 +17,7 @@
 | __Shepherdoco Purse__                 | __274__               |
 | __Small-flowered Cranesbill__         | __576__               |
 | __Sugar beet__                        | __463__               | 
-|                                       |                       | _```12 espèces```_|
+|                                       |                       | _12 espèces_|
 
 - Data source : [Kaggle V2 Plant Seedlings Dataset](https://www.kaggle.com/datasets/vbookshelf/v2-plant-seedlings-dataset)
 
