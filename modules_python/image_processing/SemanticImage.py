@@ -36,7 +36,7 @@ def SemanticImage(
     * method is string value that takes 2 values : numpy and where is the type of calculation
     * upper_color is the maximal channel color and should hace (c, ) dimension 
     * lower_color is the maximal channel color and should hace (c, ) dimension
-    * bg = "both", "black" or "white"
+    * bg = "both", "black" , "white" or "mask"
     * index : is an integer type used to select à particular image
     * legend is a list used for title images
     * kernel : is a tuple used to create a deep mask 
@@ -59,7 +59,7 @@ def SemanticImage(
         if legend : pass 
         else: legend = id_sel.copy()
 
-        if bg in ["white", "black"] : 
+        if bg in ["white", "black", "mask"] : 
             fig, axes = plt.subplots(1, 6, figsize=(12, 4)) 
 
             for j in id_sel:
@@ -90,7 +90,13 @@ def SemanticImage(
                         axes[idd].axis("off")  
                         axes[idd].imshow(img)
                         axes[idd].set_title(legend[j], fontsize="small")
-                    
+
+                if bg == "mask":
+                    for i in range(1): 
+                        axes[idd].axis("off")  
+                        axes[idd].imshow(mask)
+                        axes[idd].set_title(legend[j], fontsize="small")
+
                 idd += 1
             plt.show()
         else : 
