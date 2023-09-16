@@ -63,7 +63,7 @@ def histogram( image, typ : str = "contrast" )  :
 
         return  img_eq_disk 
     
-def image_processing( image : np.ndarray, name : str = "RGB", reshape : tuple = (160, 160)):
+def image_processing( image : np.ndarray, name : str = "RGB", reshape : tuple = (160, 160), add_contrast: bool = False):
     """
     Copyright : Iréné A. Essomba (c) 2023
     
@@ -101,7 +101,11 @@ def image_processing( image : np.ndarray, name : str = "RGB", reshape : tuple = 
     # "RGR2-HVS"
     elif name == "RGR2-HVS"     : filter = cv2.cvtColor(imgs, cv2.COLOR_BGR2HSV)
     # "RGR2-LAB"
-    elif name == "RGR2-LAB"     : filter = cv2.cvtColor(imgs, cv2.COLOR_BGR2LAB)
+    elif name == "RGR2-LAB"     : 
+        if add_contrast is False : filter = cv2.cvtColor(imgs, cv2.COLOR_BGR2LAB)
+        else : 
+            img_    =   histogram(imgs, typ = "contrast") 
+            filter  = cv2.cvtColor(img_, cv2.COLOR_BGR2LAB)
     # rbg
     else                        : filter =  imgs
 

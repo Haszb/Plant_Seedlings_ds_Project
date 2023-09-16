@@ -1,13 +1,14 @@
 
 def read_plant_datasets(
         path            : str, 
-        reshape         : tuple = [(160, 160), (300, 300)],
-        return_as       : str = 'X_y', 
-        subset          : str ='train_set', 
-        channel_type    : str = "RGB", 
-        verbose         : any = None, limit : any = None,
-        type_indexes    : list = [1], 
-        image_idexes    : any = None
+        reshape         : tuple     = [(160, 160), (300, 300)],
+        return_as       : str       = 'X_y', 
+        subset          : str       ='train_set', 
+        channel_type    : str       = "RGB", 
+        verbose         : any       = None, limit : any = None,
+        type_indexes    : list      = [1], 
+        image_idexes    : any       = None,
+        add_contrast    : bool      = False
         ):
     """
     ----------------------------------------------------------
@@ -25,6 +26,7 @@ def read_plant_datasets(
     * verbose : is an integer or None value used to print the processes of data treatment
     * type_indexes : is a list value that specifies which directory do you want to process, 
     * image_indexes : is also a list that used to select the image to process
+    * add_contrast : is a boolean valeur, used to add light intensity on the image
     * channel_type is string value. all values take into account are bellow : 
 
     * -------------------------------------------------------------------------------------
@@ -199,7 +201,7 @@ def read_plant_datasets(
                             r, pixel = preprocessing.Size(image=image)
 
                             # conversion de rbga à rbg (channel = 4 ---> chennel = 3)
-                            image_, sobel = preprocessing.image_processing(image=image.copy(), name=channel_type, reshape=shape)
+                            image_, sobel = preprocessing.image_processing(image=image.copy(), name=channel_type, reshape=shape, add_contrast=add_contrast)
                             _true_image_, sobel = preprocessing.image_processing(image=image.copy(), name='RBG', reshape=shape)
                             # Vous pouvez effectuer des opérations sur l'image ici, si nécessaire
                             #image = cv2.resize(src=image, dsize=reshape)

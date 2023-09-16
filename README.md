@@ -3,7 +3,7 @@
 
 ## Project description :
 
-| __Noms d'espèces__                    | __Nombre de plantes par espèces__ |  total|
+| __Speces' names__                    | __Number of plants par speces__ |  total|
 |---------------------------------------|----------------------------------|------|
 | __Black-grass__                       | __309__               |
 | __Charlock__                          | __452__               |
