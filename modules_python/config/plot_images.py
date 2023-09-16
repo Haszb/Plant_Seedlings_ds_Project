@@ -12,7 +12,8 @@ def plot(
         fig_name: str = "out.png", 
         colors  : list=None,
         type_img: str ='X',
-        cmap  : str = 'RdYlBu'
+        cmap  : str = 'RdYlBu', 
+        save  : bool = False
         ):
     """
     ----------------------------------------------------------
@@ -64,15 +65,18 @@ def plot(
                         axes[i, j].axis("off")
                         # incrémentation 
                         idd += 1
+                
+                # saving figure in .png format 
+                if type_img == 'X' : plt.savefig(f"./images/{fig_name}")
+                else : plt.savefig(f"./images/{fig_name}") if save is True else ""
+                
+                plt.show()
             else: 
                 error = fg.rbg(255, 0, 255) + " type_img " + fg.rbg(255, 255, 255) + "not in" + fg.rbg(255, 0, 255)+ " ['X', 'images'] " + init.reset
                 print(error)
         except IndexError:
             error = fg.rbg(255, 0, 255) + " index " + fg.rbg(255, 255, 255) + "is out of range" + init.reset
             print(error)
-        # saving figure in .png format 
-        plt.savefig(f"./images/{fig_name}")
-        plt.show()
     else: 
         error = fg.rbg(255, 0, 255) + " data " + fg.rbg(255, 255, 255) + "cannot be empty" + init.reset
         print(error)
