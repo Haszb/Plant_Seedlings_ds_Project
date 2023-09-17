@@ -98,6 +98,7 @@ def read_plant_datasets(
     import os, sys
     import numpy as np
     import matplotlib.pyplot as plt
+    import platform
     from   sklearn.preprocessing import LabelEncoder
     from modules_python.image_processing import preprocessing
     from alive_progress import alive_bar
@@ -128,6 +129,8 @@ def read_plant_datasets(
     print(
         f'{config.fg.rbg(0,255,0)}{"-"*100}{config.init.reset}', '\n\n\n')
 
+    # verification du système d'exploiation 
+    system                  = platform.system()
     # en codage des données 
     feature_names               = types 
     target                      = LabelEncoder().fit_transform(feature_names)
@@ -170,7 +173,16 @@ def read_plant_datasets(
             true_img, _path_    = [[],[]]
 
             # nom du repertoire pour chaque espèces
-            repertoire_images_esp = f"{repertoire_images}\\" + f"{typ}"
+            if system in ["Windowns"] : repertoire_images_esp = f"{repertoire_images}\\" + f"{typ}"
+            elif system in ["Linux", "MacOS"] : repertoire_images_esp = f"{repertoire_images}/" + f"{typ}"
+            else:
+                white   = config.fg.rbg(255,255,255)
+                red     = config.fg.rbg(255,0, 0)
+                green   = config.fg.rbg(0,255,0)
+
+                error = white + f"Le système {red}{system}{white} n'est pas pris en compte" + config.init.reset
+                print(f"\n{error}\n") 
+                break
 
             # Liste tous les fichiers d'images dans le répertoire
             images = [f for f in os.listdir(repertoire_images_esp) if f.endswith(('.jpg', '.png', '.jpeg'))]
@@ -192,7 +204,10 @@ def read_plant_datasets(
                             chemin_image = os.path.join(repertoire_images_esp, image_filename)
 
                             # storing the all_paths
-                            _path_.append(f"{repertoire_images_esp}\\{image_filename}")
+                            if system == "Windowns": _path_.append(f"{repertoire_images_esp}\\{image_filename}")
+                            elif system in ["Linux", "MacOS"] : _path_.append(f"{repertoire_images_esp}/{image_filename}")
+                            else: pass 
+                            
                             # Lisez l'image
                             image = plt.imread(chemin_image)
                             width.append(image.shape[1])
