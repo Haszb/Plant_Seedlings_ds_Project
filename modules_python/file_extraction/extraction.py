@@ -5,7 +5,8 @@ def read_plant_datasets(
         return_as       : str       = 'X_y', 
         subset          : str       ='train_set', 
         channel_type    : str       = "RGB", 
-        verbose         : any       = None, limit : any = None,
+        verbose         : any       = None, 
+        limit           : any       = None,
         type_indexes    : list      = [1], 
         image_idexes    : any       = None,
         add_contrast    : bool      = False
@@ -130,11 +131,11 @@ def read_plant_datasets(
         f'{config.fg.rbg(0,255,0)}{"-"*100}{config.init.reset}', '\n\n\n')
 
     # verification du système d'exploiation 
-    system                  = platform.system()
+    system                      = platform.system()
     # en codage des données 
     feature_names               = types 
+    # encoding feature names
     target                      = LabelEncoder().fit_transform(feature_names)
-   
     # Chemin du répertoire contenant les images (remplacez "chemin_vers_votre_repertoire" par le chemin approprié)
     repertoire_images           = path
     if     reshape  : 
@@ -173,7 +174,7 @@ def read_plant_datasets(
             true_img, _path_    = [[],[]]
 
             # nom du repertoire pour chaque espèces
-            if system in ["Windowns"] : repertoire_images_esp = f"{repertoire_images}\\" + f"{typ}"
+            if   system in ["Windows"] : repertoire_images_esp = f"{repertoire_images}\\" + f"{typ}"
             elif system in ["Linux", "MacOS"] : repertoire_images_esp = f"{repertoire_images}/" + f"{typ}"
             else:
                 white   = config.fg.rbg(255,255,255)
@@ -186,12 +187,12 @@ def read_plant_datasets(
 
             # Liste tous les fichiers d'images dans le répertoire
             images = [f for f in os.listdir(repertoire_images_esp) if f.endswith(('.jpg', '.png', '.jpeg'))]
-
+            print(len(images))
             # nombre d'iamges dans le répertoire repertoire_images_esp
             size = len(images)
 
             # Parcourir la liste des fichiers d'images
-            if limit is None: pass 
+            if    limit is None: pass 
             else: images = images[: limit]
 
             with alive_bar(len(images), title = types[i]) as NAME : 
@@ -199,37 +200,36 @@ def read_plant_datasets(
 
                 try:
                     for j, image_filename in enumerate(images):
-                        if j in image_idexes:
-                            # Construisez le chemin complet du fichier image
-                            chemin_image = os.path.join(repertoire_images_esp, image_filename)
+                        #if j in image_idexes:
+                        # Construisez le chemin complet du fichier image
+                        chemin_image = os.path.join(repertoire_images_esp, image_filename)
 
-                            # storing the all_paths
-                            if system == "Windowns": _path_.append(f"{repertoire_images_esp}\\{image_filename}")
-                            elif system in ["Linux", "MacOS"] : _path_.append(f"{repertoire_images_esp}/{image_filename}")
-                            else: pass 
-                            
-                            # Lisez l'image
-                            image = plt.imread(chemin_image)
-                            width.append(image.shape[1])
-                            height.append(image.shape[0])
-                            # calcul du nombre de pixels de l'image 
-                            r, pixel = preprocessing.Size(image=image)
-
-                            # conversion de rbga à rbg (channel = 4 ---> chennel = 3)
-                            image_, sobel = preprocessing.image_processing(image=image.copy(), name=channel_type, reshape=shape, add_contrast=add_contrast)
-                            _true_image_, sobel = preprocessing.image_processing(image=image.copy(), name='RBG', reshape=shape)
-                            # Vous pouvez effectuer des opérations sur l'image ici, si nécessaire
-                            #image = cv2.resize(src=image, dsize=reshape)
-                            
-                            X_type.append(image_)
-                            true_img.append(_true_image_)
-                            y_type.append(target[i])
-                            num_img.append(j)
-                            sob.append(sobel * 1.0)
-                            r_.append(r)
-                            pix.append(pixel)
-                            
+                        # storing the all_paths
+                        if   system in ["Windows"] : _path_.append(f"{repertoire_images_esp}\\{image_filename}")
+                        elif system in ["Linux", "MacOS"] : _path_.append(f"{repertoire_images_esp}/{image_filename}")
                         else: pass 
+
+                        # Lisez l'image
+                        image = plt.imread(chemin_image)
+                        width.append(image.shape[1])
+                        height.append(image.shape[0])
+                        # calcul du nombre de pixels de l'image 
+                        r, pixel = preprocessing.Size(image=image)
+
+                        # conversion de rbga à rbg (channel = 4 ---> chennel = 3)
+                        image_, sobel = preprocessing.image_processing(image=image.copy(), name=channel_type, reshape=shape, add_contrast=add_contrast)
+                        _true_image_, sobel = preprocessing.image_processing(image=image.copy(), name='RBG', reshape=shape)
+                        # Vous pouvez effectuer des opérations sur l'image ici, si nécessaire
+                        #image = cv2.resize(src=image, dsize=reshape)
+                        
+                        X_type.append(image_)
+                        true_img.append(_true_image_)
+                        y_type.append(target[i])
+                        num_img.append(1)
+                        sob.append(sobel * 1.0)
+                        r_.append(r)
+                        pix.append(pixel)
+                        #else: pass 
 
                         sleep(.001)
                         NAME()
@@ -243,7 +243,7 @@ def read_plant_datasets(
                 # cible 
                 y.append(np.array(y_type))
                 # number of images per categories
-                number_of_imgames.append( len(num_img) )
+                number_of_imgames.append( sum(num_img) )
                 # nombre d'image en rgba par catégories
                 sobels.append(sum(sob))
                 # rapport width / height par catégories
@@ -283,13 +283,16 @@ def read_plant_datasets(
             "paths"         : _paths_
         }
 
-        if return_as == "dict" : data_reshaping[f"{shape[0]}x{shape[1]}"] = data.copy()
-        else: data_reshaping[f"{shape[0]}x{shape[1]}"] = {"X" : data['X'], 'target' : data["target"]}
-
-    print(
-        f"\n{config.fg.rbg(0,255,0)}{'-'*100}\
-        \n{config.init.bold + config.fg.rbg(0,255,255)}Processus Extraction-Chargement-Transformation (ELT) terminé !!!!!\
-        \n{config.fg.rbg(0,255,0)}{'-'*100}{config.init.reset}\n\n\n"
-        )
+        if   return_as == "dict" : data_reshaping[f"{shape[0]}x{shape[1]}"] = data.copy()
+        elif return_as == "X_y"  : data_reshaping[f"{shape[0]}x{shape[1]}"] = {"X" : data['images'], 'target' : data["target"]}
+        else :
+            error = config.fg.rbg(255,255,255) + f"return_as is not in {config.fg.rbg(0,255,0)}['X_y', 'dict']" + config.init.reset
+            print( error )
+    if verbose == 1:
+        print(
+            f"\n{config.fg.rbg(0,255,0)}{'-'*100}\
+            \n{config.init.bold + config.fg.rbg(0,255,255)}Processus Extraction-Chargement-Transformation (ELT) terminé !!!!!\
+            \n{config.fg.rbg(0,255,0)}{'-'*100}{config.init.reset}\n\n\n"
+            )
    
     return data_reshaping

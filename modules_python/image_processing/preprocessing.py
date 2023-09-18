@@ -137,11 +137,11 @@ def Best_mask(img : np.ndarray, mask_1 : np.ndarray, mask_2 : np.ndarray):
     import tensorflow as tf 
 
     # distnace between encoding and identity
-    image_1 = img_encoding(image=img, mask=mask_1)
-    image_2 = img_encoding(image=img, mask=mask_2)
+    image_1     = img_encoding(image=img, mask=mask_1)
+    image_2     = img_encoding(image=img, mask=mask_2)
 
-    dist1 = tf.reduce_sum( tf.square( tf.subtract(img, image_1) ) ) 
-    dist2 = tf.reduce_sum( tf.square( tf.subtract(img, image_2) ) )
+    dist1       = tf.reduce_sum( tf.square( tf.subtract(img, image_1) ) ) 
+    dist2       = tf.reduce_sum( tf.square( tf.subtract(img, image_2) ) )
 
     if dist1 < dist2: return (mask_1, "mask1")
     else: return (mask_2, "mask2") 
@@ -318,7 +318,63 @@ def change_bg(imgs : np.ndarray, upper_color : list, lower_color : list, dtype :
 
     return IMGS
 
+def filter_selection(
+        img             : [list, np.ndarray], 
+        figsize         : tuple  = (15, 4), 
+        color_indexes   : list   = [30, 60, 25], 
+        mul             : float  = 1.0,
+        names           : list   = [], 
+        select_index    : list   = [0],
+        xlabel          : str    = "Bins",
+        ylabel          : str    = "Fréquences",
+        bins            : int    = 255,
+        rwidth          : float  = 0.2
+        ):
+
+    """
+    Copyright : Iréné A. Essomba (c) 2023
 
 
+    * img is the image with (n, m, m, 3) dimension, where n is the samples
+    * figsize is a tuple used to create figures 
+    * color_indexes is a list of size 3 used to set color in each plot
+    * mul is numeric value
+    * names is a list that contains the names of speces len(names) = n 
+    
+    *----------------------------------------------------------
+    
+    >>> img     = np.random.randn(3, 160, 160, 3)
+    >>> names   = ["A", "B", "C"]
+    >>> filter_selection(img = img, fisize = (8, 8), color_indexes = [20, 10,  6], names=names)
+    
+    """
+    import matplotlib.pyplot as plt 
+    import matplotlib.colors as mcolors
+
+    # uploading all python colors
+    colors = list(mcolors.CSS4_COLORS.keys())
+    # get the channel of the image
+    #channel = img.shape[-1]
+  
+    # plotting image in function of the channel
+    lenght = len(select_index)
+    fig, axes = plt.subplots(lenght, 3, figsize=figsize, sharey=True)
+
+    for i in range(lenght):
+        if i in select_index:
+            channel = img[i].shape[-1]
+            for j in range(channel):
+                axes[i, j].hist(img[i][:, :, j].ravel() * mul, bins=bins, color=colors[color_indexes[j]], histtype="bar", 
+                                rwidth=rwidth ,density=False)
+                # title of image
+                if i == 0: axes[i, j].set_title(f"axis {j}", fontsize="small")
+                # set xlabel
+                if i == lenght-1 :axes[i, j].set_xlabel(xlabel, weight="bold")
+                # set ylabel
+                if j == 0 :  axes[i, j].set_ylabel(ylabel, weight="bold")
+
+                axes[i, j].legend(labels = [names[i]], fontsize='x-small')
+        else: pass
+    plt.show()
 
 
